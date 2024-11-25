@@ -1,5 +1,9 @@
+require("dotenv").config();
+
 const { MongoClient, ServerApiVersion } = require("mongodb");
+
 const express = require("express");
+
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
 
@@ -13,8 +17,7 @@ const findData = (path) => {
   return readJson;
 };
 
-const uri =
-  "mongodb+srv://Ranju:ranju123@cluster0.jzvet.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.mongoURL;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
