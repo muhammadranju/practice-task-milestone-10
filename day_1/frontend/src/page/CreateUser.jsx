@@ -1,6 +1,7 @@
 import { useState } from "react";
+import swal from "sweetalert";
 
-function App() {
+function CreateUser() {
   const [user, setUser] = useState({});
 
   const handelUserData = async (e) => {
@@ -20,7 +21,15 @@ function App() {
         body: JSON.stringify({ name, email, phone }),
       });
       const data = await res.json();
+      if (data.acknowledged) {
+        swal({
+          title: "Success!",
+          text: "Successfully created a new user.",
+          icon: "success",
+        });
+      }
       setUser(data);
+      form.reset();
     } catch (error) {
       console.log(error);
     }
@@ -29,23 +38,38 @@ function App() {
 
   return (
     <>
-      <h1>Simple CRUD</h1>
-
-      <form onSubmit={handelUserData}>
+      <form onSubmit={handelUserData} className="form-control">
         <label htmlFor="name">Name</label>
-        <input type="text" id="name" name="name" />
+        <input
+          className="input input-bordered"
+          type="text"
+          id="name"
+          name="name"
+        />
         <br />
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" />
+        <input
+          className="input input-bordered"
+          type="email"
+          id="email"
+          name="email"
+        />
         <br />
         <label htmlFor="phone">Phone</label>
-        <input type="tel" id="phone" name="phone" />
+        <input
+          className="input input-bordered"
+          type="tel"
+          id="phone"
+          name="phone"
+        />
 
         <br />
-        <button type="submit">Submit</button>
+        <button className="btn" type="submit">
+          Submit
+        </button>
       </form>
     </>
   );
 }
 
-export default App;
+export default CreateUser;
